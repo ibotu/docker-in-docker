@@ -1,0 +1,67 @@
+<!-- wp:group -->
+<div class="wp-block-group">
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <input type="hidden" name="action" value="add_custom_post">
+
+        <label for="profile_name_meta_box">Name</label>
+        <input type="text" id="profile_name_meta_box" name="profile_name_meta_box" required>
+
+        <label for="profile_title_meta_box">Title</label>
+        <input type="text" id="profile_title_meta_box" name="profile_title_meta_box" required>
+
+        <label for="profile_advertisement_text_meta_box">Advertisement Text</label>
+        <textarea id="profile_advertisement_text_meta_box" name="profile_advertisement_text_meta_box"
+            required></textarea>
+
+        <label for="profile_gender_meta_box">Gender</label>
+        <select id="profile_gender_meta_box" name="profile_gender_meta_box" required>
+            <option value="">Select...</option>
+            <!-- Add options as needed -->
+        </select>
+
+        <label for="profile_age_meta_box">Age</label>
+        <input type="number" id="profile_age_meta_box" name="profile_age_meta_box" required>
+
+        <label for="profile_location_meta_box">Location</label>
+        <input type="text" id="profile_location_meta_box" name="profile_location_meta_box" required>
+
+        <label for="profile_availability_meta_box">Availability</label>
+        <input type="text" id="profile_availability_meta_box" name="profile_availability_meta_box" required>
+
+        <label for="profile_services_meta_box">Services</label>
+        <textarea id="profile_services_meta_box" name="profile_services_meta_box" required></textarea>
+
+        <label for="profile_possibilities_meta_box">Possibilities</label>
+        <textarea id="profile_possibilities_meta_box" name="profile_possibilities_meta_box" required></textarea>
+
+        <label for="profile_videos_meta_box">Videos</label>
+        <input type="text" id="profile_videos_meta_box" name="profile_videos_meta_box" required>
+
+        <label for="profile_phone_number_meta_box">Phone Number</label>
+        <input type="text" id="profile_phone_number_meta_box" name="profile_phone_number_meta_box" required>
+
+        <label for="profile_nationality_meta_box">Nationality</label>
+        <input type="text" id="profile_nationality_meta_box" name="profile_nationality_meta_box" required>
+
+        <label for="profile_length_meta_box">Length</label>
+        <input type="number" id="profile_length_meta_box" name="profile_length_meta_box" required>
+
+        <label for="profile_weight_meta_box">Weight</label>
+        <input type="number" id="profile_weight_meta_box" name="profile_weight_meta_box" required>
+
+        <label for="profile_cupsize_meta_box">Cup Size</label>
+        <input type="text" id="profile_cupsize_meta_box" name="profile_cupsize_meta_box" required>
+
+        <label for="profile_haircolor_meta_box">Hair Color</label>
+        <input type="text" id="profile_haircolor_meta_box" name="profile_haircolor_meta_box" required>
+
+        <label for="profile_eyecolor_meta_box">Eye Color</label>
+        <input type="text" id="profile_eyecolor_meta_box" name="profile_eyecolor_meta_box" required>
+
+        <label for="profile_prices_meta_box">Prices</label>
+        <input type="text" id="profile_prices_meta_box" name="profile_prices_meta_box" required>
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<!-- /wp:group -->

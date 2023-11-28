@@ -1,0 +1,389 @@
+<!-- wp:template-part {"slug":"header","area":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full"} -->
+<main class="wp-block-group alignfull">
+
+
+	<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|50"},"margin":{"bottom":"var:preset|spacing|40"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group"
+		style="margin-bottom:var(--wp--preset--spacing--40);padding-top:var(--wp--preset--spacing--50)">
+		<!-- wp:post-featured-image {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}}} /-->
+		<style>
+			#customPostForm table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			#customPostForm td {
+				padding: 10px;
+				border: 1px solid #ddd;
+			}
+
+			#customPostForm input[type="text"] {
+				width: 100%;
+			}
+
+			#customPostForm input[type="submit"] {
+				background-color: #4CAF50;
+				color: white;
+				padding: 14px 20px;
+				margin: 8px 0;
+				border: none;
+				cursor: pointer;
+				width: 100%;
+			}
+
+			#customPostForm input[type="submit"]:hover {
+				opacity: 0.8;
+			}
+		</style>
+		<!-- wp:html -->
+		<style>
+			#searchForm table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			#searchForm td {
+				padding: 10px;
+				border: 1px solid #ddd;
+			}
+
+			#searchForm input[type="text"] {
+				width: 100%;
+			}
+
+			#searchForm input[type="submit"] {
+				background-color: #4CAF50;
+				color: white;
+				padding: 14px 20px;
+				margin: 8px 0;
+				border: none;
+				cursor: pointer;
+				width: 100%;
+			}
+
+			#searchForm input[type="submit"]:hover {
+				opacity: 0.8;
+			}
+		</style>
+<style>
+    #results table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #results th, #results td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #results tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    #results th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+</style>
+		<form id="searchForm" class="widefat">
+			<table class="widefat">
+				<h2>Search</h2>
+				<tr>
+					<td><label for="profile_name_meta_box">Name</label></td>
+					<td><input type="text" id="profile_name_meta_box" name="profile_name_meta_box"></td>
+				</tr>
+				<tr>
+					<td><label for="profile_gender_meta_box">Gender</label></td>
+					<td><input type="text" id="profile_gender_meta_box" name="profile_gender_meta_box"></td>
+				</tr>
+				<tr>
+					<td><label for="profile_age_meta_box">Age</label></td>
+					<td><input type="text" id="profile_age_meta_box" name="profile_age_meta_box"></td>
+				</tr>
+				<tr>
+					<td><label for="search_availability">Availability</label></td>
+					<td><input type="text" id="search_availability" name="search_availability"></td>
+				</tr>
+				<tr>
+					<td><label for="search_services">Services</label></td>
+					<td><input type="text" id="search_services" name="search_services"></td>
+				</tr>
+				<tr>
+					<td><label for="search_price">Price</label></td>
+					<td><input type="text" id="search_price" name="search_price"></td>
+				</tr>
+				<tr>
+					<td><label for="search_cup_size">Cup Size</label></td>
+					<td><input type="text" id="search_cup_size" name="search_cup_size"></td>
+				</tr>
+				<tr>
+					<td><label for="search_nationality">Nationality</label></td>
+					<td><input type="text" id="search_nationality" name="search_nationality"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="Search">
+					</td>
+				</tr>
+
+			</table>
+		</form>
+		<div id="results"></div>
+		<script>
+function buildUrl() {
+    var url = '/wp-json/myplugin/v1/search?';
+
+    var input = document.querySelector('#searchForm input[name="profile_name_meta_box"]');
+    if (input && input.value) {
+        url += 'profile_name_meta_box=' + encodeURIComponent(input.value);
+    }
+
+    return url;
+}
+
+var timeout = null;
+var resultsDiv = document.getElementById('results');
+
+var inputs = document.querySelectorAll('#searchForm input[type="text"]');
+inputs.forEach(input => {
+    input.addEventListener('keyup', function(event) {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            var url = buildUrl();
+
+			fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            // Clear any previous results
+            while (resultsDiv.firstChild) {
+                resultsDiv.removeChild(resultsDiv.firstChild);
+            }
+
+            // handle the response data here
+            var resultsTable = document.createElement('table');
+            
+            // Create table header
+            var header = resultsTable.createTHead();
+            var headerRow = header.insertRow();
+            var headerCell = headerRow.insertCell();
+            headerCell.textContent = 'Title';
+
+            // Populate table with data
+            data.forEach(item => {
+                var row = resultsTable.insertRow();
+                var cell = row.insertCell();
+                cell.textContent = item.title;
+                // add more cells here for each property you want to display
+            });
+
+            resultsDiv.appendChild(resultsTable);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        }, 300); // delay of 300ms
+    });
+});
+		</script>
+		<!-- /wp:html -->
+
+		<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10","padding":{"top":"0","bottom":"0"}}},"layout":{"type":"flex","orientation":"vertical","justifyContent":"stretch"}} -->
+		<div class="wp-block-group" style="padding-top:0;padding-bottom:0">
+			<!-- wp:post-title {"level":1,"fontSize":"x-large"} /-->
+
+			<!-- wp:template-part {"slug":"post-meta"} /-->
+			<!-- wp:shortcode -->
+			[display_meta]
+			<!-- /wp:shortcode -->
+
+		</div>
+		<!-- /wp:group -->
+
+
+
+		<!-- wp:group {"tagName":"main","align":"full"} -->
+		<main class="wp-block-group alignfull">
+			<form id="customPostForm">
+				<table>
+					<tr>
+						<td><label for="profile_name_meta_box">Name</label></td>
+						<td><input type="text" id="profile_name_meta_box" name="profile_name_meta_box" required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_title_meta_box">Title</label></td>
+						<td><input type="text" id="profile_title_meta_box" name="profile_title_meta_box" required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_advertisement_text_meta_box">Advertisement Text</label></td>
+						<td><input type="text" id="profile_advertisement_text_meta_box"
+								name="profile_advertisement_text_meta_box" required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_gender_meta_box">Gender</label></td>
+						<td><input type="text" id="profile_gender_meta_box" name="profile_gender_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_age_meta_box">Age</label></td>
+						<td><input type="text" id="profile_age_meta_box" name="profile_age_meta_box" required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_location_meta_box">Location</label></td>
+						<td><input type="text" id="profile_location_meta_box" name="profile_location_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_availability_meta_box">Availability</label></td>
+						<td><input type="text" id="profile_availability_meta_box" name="profile_availability_meta_box"
+								required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_services_meta_box">Services</label></td>
+						<td><input type="text" id="profile_services_meta_box" name="profile_services_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_possibilities_meta_box">Possibilities</label></td>
+						<td><input type="text" id="profile_possibilities_meta_box" name="profile_possibilities_meta_box"
+								required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_videos_meta_box">Videos</label></td>
+						<td><input type="text" id="profile_videos_meta_box" name="profile_videos_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_phone_number_meta_box">Phone Number</label></td>
+						<td><input type="text" id="profile_phone_number_meta_box" name="profile_phone_number_meta_box"
+								required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_nationality_meta_box">Nationality</label></td>
+						<td><input type="text" id="profile_nationality_meta_box" name="profile_nationality_meta_box"
+								required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_length_meta_box">Length</label></td>
+						<td><input type="text" id="profile_length_meta_box" name="profile_length_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_weight_meta_box">Weight</label></td>
+						<td><input type="text" id="profile_weight_meta_box" name="profile_weight_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_cupsize_meta_box">Cup Size</label></td>
+						<td><input type="text" id="profile_cupsize_meta_box" name="profile_cupsize_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_haircolor_meta_box">Hair Color</label></td>
+						<td><input type="text" id="profile_haircolor_meta_box" name="profile_haircolor_meta_box"
+								required></td>
+					</tr>
+					<tr>
+						<td><label for="profile_eyecolor_meta_box">Eye Color</label></td>
+						<td><input type="text" id="profile_eyecolor_meta_box" name="profile_eyecolor_meta_box" required>
+						</td>
+					</tr>
+					<tr>
+						<td><label for="profile_prices_meta_box">Prices</label></td>
+						<td><input type="text" id="profile_prices_meta_box" name="profile_prices_meta_box" required>
+						</td>
+					</tr>
+					<!-- Add more fields as needed -->
+
+					<tr>
+						<td colspan="2">
+							<input type="submit" value="Submit">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</main>
+		<!-- /wp:group -->
+
+		<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->
+
+		<script>
+			document.getElementById('customPostForm').addEventListener('submit', function (event) {
+				event.preventDefault();
+
+				const data = {
+					title: document.getElementById('profile_name_meta_box').value,
+					content: document.getElementById('profile_title_meta_box').value,
+					status: 'publish', // or 'draft'
+					meta: { // your custom meta fields
+						profile_name_meta_box: document.getElementById('profile_name_meta_box').value,
+						profile_title_meta_box: document.getElementById('profile_title_meta_box').value,
+						profile_advertisement_text_meta_box: document.getElementById('profile_advertisement_text_meta_box').value,
+						profile_gender_meta_box: document.getElementById('profile_gender_meta_box').value,
+						profile_age_meta_box: document.getElementById('profile_age_meta_box').value,
+						profile_location_meta_box: document.getElementById('profile_location_meta_box').value,
+						profile_availability_meta_box: document.getElementById('profile_availability_meta_box').value,
+						profile_services_meta_box: document.getElementById('profile_services_meta_box').value,
+						profile_possibilities_meta_box: document.getElementById('profile_possibilities_meta_box').value,
+						profile_videos_meta_box: document.getElementById('profile_videos_meta_box').value,
+						profile_phone_number_meta_box: document.getElementById('profile_phone_number_meta_box').value,
+						profile_nationality_meta_box: document.getElementById('profile_nationality_meta_box').value,
+						profile_length_meta_box: document.getElementById('profile_length_meta_box').value,
+						profile_weight_meta_box: document.getElementById('profile_weight_meta_box').value,
+						profile_cupsize_meta_box: document.getElementById('profile_cupsize_meta_box').value,
+						profile_haircolor_meta_box: document.getElementById('profile_haircolor_meta_box').value,
+						profile_eyecolor_meta_box: document.getElementById('profile_eyecolor_meta_box').value,
+						profile_prices_meta_box: document.getElementById('profile_prices_meta_box').value,
+						// add more fields as needed
+					}
+				};
+
+				fetch('/wp-json/wp/v2/posts', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-WP-Nonce': my_script_vars.nonce // replace with your actual nonce value
+					},
+					body: JSON.stringify(data)
+				})
+					.then(response => response.json())
+					.then(post => console.log(post))
+					.catch(error => console.error(error));
+			});
+		</script>
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-content {"lock":{"move":false,"remove":true},"align":"full","layout":{"type":"constrained"}} /-->
+
+	<!-- wp:group {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40"},"padding":{"bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
+	<div class="wp-block-group"
+		style="margin-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--50)">
+		<!-- wp:post-terms {"term":"post_tag","separator":"  ","className":"is-style-pill"} /-->
+
+		<!-- wp:group {"layout":{"type":"constrained"}} -->
+		<div class="wp-block-group">
+			<!-- wp:spacer {"height":"var:preset|spacing|40"} -->
+			<div style="height:var(--wp--preset--spacing--40)" aria-hidden="true" class="wp-block-spacer">
+			</div>
+			<!-- /wp:spacer -->
+
+			<!-- wp:separator {"style":{"spacing":{"margin":{"bottom":"var:preset|spacing|40"}}},"backgroundColor":"contrast-3","className":"is-style-wide"} -->
+			<hr class="wp-block-separator has-text-color has-contrast-3-color has-alpha-channel-opacity has-contrast-3-background-color has-background is-style-wide"
+				style="margin-bottom:var(--wp--preset--spacing--40)" />
+			<!-- /wp:separator -->
+
+			<!-- wp:pattern {"slug":"twentytwentyfour/hidden-comments"} /-->
+
+			<!-- wp:pattern {"slug":"twentytwentyfour/hidden-post-navigation"} /-->
+
+		</div>
+		<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","area":"footer","tagName":"footer"} /-->

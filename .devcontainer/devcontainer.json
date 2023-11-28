@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
+{
+	"name": "Docker in Docker",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"webPort": 8080,  // Uncomment this when using a Dockerfile or Docker Compose file.
+				"enableUFW": true,
+				"appPort": 8080
+			},
+			"extensions": [
+				"DEVSENSE.phptools-vscode",
+				"bmewburn.vscode-intelephense-client",
+				"rifi2k.format-html-in-php",
+				"TabNine.tabnine-vscode",
+				"SilasNevstad.gpthelper",
+				"Codium.codium",
+				"DanielSanMedium.dscodegpt",
+				"Roylam23.gpt-code"
+			]
+		}
+	},
+
+	"postCreateCommand": "/bin/sh",
+	"runArgs": [
+		"-c",
+		"curl -fsSL https://getcaddy.com | bash -s personal http.cors,http.realip && mv /root/.caddy /home/vscode/.caddy"
+	],
+	"postStartCommand": "caddy run --config /workspace/Caddyfile",
+	"workspaceFolder": "/workspace"
+}

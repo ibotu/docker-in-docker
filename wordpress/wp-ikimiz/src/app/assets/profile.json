@@ -1,0 +1,145 @@
+{
+    "name": "John Doe",
+    "title": "A brief description about John Doe.",
+    "advertisement_text": "A brief description about John Doe.",
+    "gender": ["male", "female", "trans"],
+    "age": 30,
+    "location": "Samsun, Atakum",
+    "availability": {
+        "mon": "9:00-03:00",
+        "tue": "9:00-03:00",
+        "wed": "9:00-03:00",
+        "thu": "9:00-03:00",
+        "fri": "9:00-03:00",
+        "sat": "9:00-03:00",
+        "sun": "9:00-03:00"
+    },
+    "services": [
+        "Private reception",
+        "Escort",
+        "Erotic massage",
+        "BDSM",
+        "Virtual Sex",
+        "Window prostitution"
+    ],
+    "possibilities": [
+        "Anal",
+        "Anal At Client",
+        "Between Breasts (Russian)",
+        "Bisex",
+        "Blowjob",
+        "Blowjob Without Condom",
+        "Cardate",
+        "Cum In Mouth",
+        "Cum On Face",
+        "Blowjob Deepthroat",
+        "Deflowering",
+        "Erotic Massage",
+        "Facesitting",
+        "Foot Lovers",
+        "Fingering",
+        "Fisting",
+        "Fisting At Customer",
+        "French Kissing",
+        "Gagging / Gags",
+        "Gangbang",
+        "Gfe",
+        "Pee Sex",
+        "Peeing Sex By Customer",
+        "Subtraction",
+        "To Kiss",
+        "Outdoor Sex",
+        "Cunnilingus",
+        "Rimming At Customer",
+        "Intimate",
+        "Fucking Without Condom",
+        "Soft Sm",
+        "Special Clothing Requests",
+        "Squirting",
+        "Strapon Sex",
+        "Transvestism",
+        "Trio M/v",
+        "Trio M/m",
+        "Video Recording",
+        "Wrestling",
+        "Penis Massage",
+        "Porn Star",
+        "High Class",
+        "Hotel",
+        "Wapdate",
+        "Dinner Date"
+    ],
+    "images": "image1.jpg,image2.jpg,image3.jpg",
+    "videos": "video1.mp4,video2.mp4",
+    "phone_number": "+1234567890",
+    "nationality": ["American", "British", "Chinese", "Indian", "French", "German", "Spanish", "Italian", "Russian", "Brazilian"],
+    "length": 180,
+    "weight": 75,
+    "cupsize": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "DD",
+        "DDD",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M"
+      ],
+    "haircolor": ["Black", "Brown", "Blonde", "Red", "Gray", "White", "Other"],
+    "eyecolor": [
+        "Brown",
+        "Blue",
+        "Green",
+        "Hazel",
+        "Gray",
+        "Amber"
+      ],
+    "prices": [
+        {
+            "duration": "Quickie (+/- 15 minutes)",
+            "price": 50.00,
+            "price_type": "Hotel visit"
+        },
+        {
+            "duration": "every 30 minutes",
+            "price": 75.00,
+            "price_type": "Hotel visit"
+        },
+        {
+            "duration": "every 45 minutes",
+            "price": 100.00,
+            "price_type": "Hotel visit"
+        },
+        {
+            "duration": "per 1 hour",
+            "price": 150.00,
+            "price_type": "Hotel visit"
+        },
+        {
+            "duration": "per 2 hours",
+            "price": 250.00,
+            "price_type": "Hotel visit"
+        },
+        {
+            "duration": "full day",
+            "price": 1000.00,
+            "price_type": "Hotel visit"
+        }
+      ],
+      "visiting_type": [
+        "Hotel visit",
+        "Home visit",
+        "Own reception"
+    ],
+    "extra_services": {
+        "Service 1": 50,
+        "Service 2": 70
+    }
+}

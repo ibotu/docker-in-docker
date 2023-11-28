@@ -1,0 +1,47 @@
+# Use the official WordPress image as the base
+FROM php:8.1-apache
+
+RUN a2enmod rewrite
+
+# Install WordPress dependencies (adjust as needed)
+RUN apt-get update && \
+    apt-get install -y \
+    wget \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install the MySQLi extension for PHP
+RUN docker-php-ext-install mysqli
+
+# Download and install WordPress
+RUN wget https://wordpress.org/latest.zip -O /tmp/latest.zip && \
+    unzip -q /tmp/latest.zip -d /var/www/html/ && \
+    rm /tmp/latest.zip
+
+# Create the wp-content directory
+RUN mkdir -p /var/www/html/wp-content
+
+# Set ownership for the entire WordPress directory
+RUN chown -R www-data:www-data /var/www/html
+
+# Configure WordPress to use the direct filesystem method
+RUN echo "define('FS_METHOD', 'direct');" >> /var/www/html/wp-config.php
+
+
+# Expose the port used by your web server (usually 80 for Apache)
+EXPOSE 80
+
+# Set up a working directory (if needed)
+WORKDIR /var/www/html
+
+# Copy your entrypoint script into the container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make your entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Use your custom entrypoint script
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+# Start the web server (adjust this based on your web server setup)
+CMD ["apache2-foreground"]

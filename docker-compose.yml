@@ -1,0 +1,49 @@
+version: '3'
+services:
+  scraper:
+    image: my-scraper-image
+    command: ["bash"]
+    tty: true
+    volumes:
+      - ./scraper:/app
+      - ./html_files:/app/html_files:delegated
+
+  db:
+    image: mysql:8
+    volumes:
+      - mysql_data:/var/lib/mysql:delegated
+    environment:
+      MYSQL_ROOT_PASSWORD: example_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress_password
+  adminer:
+      image: adminer
+      ports:
+        - "8081:8080"
+      depends_on:
+        - db
+  wordpress:
+    build: 
+      context: .
+      dockerfile: Dockerfile.custom
+    ports:
+      - "8080:80"
+    volumes:
+      - wordpress_data:/var/www/html:delegated
+      - ./wordpress:/var/www/html/wp-content/plugins
+      - ./themes:/var/www/html/wp-content/themes
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress_password
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: "true"
+      WP_MEMORY_LIMIT: 1024M
+
+
+
+volumes:
+  mysql_data:
+  wordpress_data:

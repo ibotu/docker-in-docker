@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Ikimiz\\": "app"
+        }
+    },
+    "require": {
+        "yahnis-elsts/plugin-update-checker": "^4.13",
+        "monolog/monolog": "^3.5",
+        "kint-php/kint": "^5.0",
+        "fabpot/goutte": "^4.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "symfony/console": "^6.3",
+        "twig/twig": "^3.8"
+    }
+}
